@@ -1,14 +1,44 @@
-# Data Engineering ETL Pipeline (v1)
+# Data Engineering ETL Pipeline
 
-Small ETL pipeline project to demonstrate data engineering fundamentals.
+Small end-to-end ETL pipeline project to demonstrate core data engineering fundamentals.
 
-## What it does
-- Extracts raw sales data from `data/raw/sales.csv`
-- Transforms it (parses `date`, calculates `revenue = quantity * price`)
-- Loads the cleaned dataset into `data/processed/sales_clean.csv`
+## What this project does
+- Extracts raw sales data from a CSV file
+- Cleans and standardizes the data
+- Removes duplicate and null rows
+- Saves a cleaned CSV snapshot
+- Loads the data into a SQLite database
+
+## Tech stack
+- Python
+- Pandas
+- SQLite
+- YAML configuration
+- Logging
+
+## Project structure
+simple-data-pipeline/
+├─ config/
+│ └─ config.yaml
+├─ data/
+│ ├─ raw/
+│ │ └─ sales.csv
+│ └─ processed/
+│ ├─ processed.csv
+│ └─ pipeline.db
+├─ logs/
+├─ src/
+│ ├─ extract.py
+│ ├─ transform.py
+│ ├─ load.py
+│ ├─ pipeline.py
+│ └─ utils.py
+└─ README.md
 
 ## How to run
 ```bash
-python src/extract.py
-python src/transform.py
-python src/load.py
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python -m src.pipeline --config config/config.yaml
+
