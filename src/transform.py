@@ -1,20 +1,21 @@
+from __future__ import annotations
 import pandas as pd
 
-def transform(df: pd.DataFrame) -> pd.DataFrame:
-    # date -> echtes Datum
-    df["date"] = pd.to_datetime(df["date"])
+def transform(
+    df: pd.DataFrame,
+    drop_duplicates: bool = True,
+    drop_null_rows: bool = True
+) -> pd.DataFrame:
 
-    # revenue berechnen
-    df["revenue"] = df["quantity"] * df["price"]
+    out = df.copy()
 
-    # saubere Spaltenreihenfolge
-    df = df[["order_id", "date", "customer", "product", "quantity", "price", "revenue"]]
+    # normalize column names
+    out.columns = [c.strip().lower().replace(" ", "_") for c in out.columns]
 
-    return df
+    if drop_null_rows:
+        out = out.dropna()
 
-if __name__ == "__main__":
-    df_raw = pd.read_csv("data/raw/sales.csv")
-    df_clean = transform(df_raw)
+    if drop_duplicates:
+        out = out.drop_duplicates()
 
-    print("Transformed rows:", len(df_clean))
-    print(df_clean.head())
+    return out

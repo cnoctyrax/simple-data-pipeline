@@ -1,0 +1,20 @@
+project:
+  name: simple-data-pipeline
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  logs_dir: logs
+
+source:
+  type: csv
+  csv_path: data/raw/input.csv
+
+transform:
+  drop_duplicates: true
+  drop_null_rows: true
+
+load:
+  type: sqlite
+  sqlite_path: data/processed/pipeline.db
+  table_name: records

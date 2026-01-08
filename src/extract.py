@@ -1,10 +1,5 @@
+from __future__ import annotations
 import pandas as pd
 
-def extract_data(path: str) -> pd.DataFrame:
-    df = pd.read_csv(path)
-    print("Extracted rows:", len(df))
-    print(df.head())
-    return df
-
-if __name__ == "__main__":
-    extract_data("data/raw/sales.csv")
+def extract_csv(csv_path: str) -> pd.DataFrame:
+    return pd.read_csv(csv_path)
